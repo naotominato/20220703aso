@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <title>モーダルウィンドウ</title>
+  <link rel="stylesheet" href="../reset.css">
+  <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+  <div id="app">
+
+    <button @click="openModal">開く</button>
+
+    <open-modal v-show="showContent" @from-child="closeModal">モーダルウィンドウ</open-modal>
+  </div>
+
+  <script>
+    Vue.component('open-modal', {
+      template: `
+        <div id="overlay" @click="clickEvent">
+          <div id="content" @click="stopEvent">
+            <p><slot></slot></p>
+            <button @click="clickEvent">閉じる</button>
+          </div>
+        </div>
+      `,
+      methods: {
+        clickEvent() {
+          this.$emit('from-child')
+        },
+        stopEvent() {
+          event.stopPropagation()
+        }
+      }
+    });
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          showContent: false
+        }
+      },
+      methods: {
+        openModal() {
+          this.showContent = true
+        },
+        closeModal() {
+          this.showContent = false
+        },
+      }
+    });
+  </script>
+</body>
+</html>

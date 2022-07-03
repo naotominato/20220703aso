@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <title>切り替えタブ</title>
+  <link rel="stylesheet" href="../reset.css">
+  <link rel="stylesheet" href="css/tab.css">
+</head>
+<body>
+  
+    <div id="contents">
+      <div class="tab">
+        <ul class="tab-menu">
+          <li @click="change('1')" :class="{'active': isActive === '1'}">タブ1</li>
+          <li @click="change('2')" :class="{'active': isActive === '2'}">タブ2</li>
+          <li @click="change('3')" :class="{'active': isActive === '3'}">タブ3</li>
+        </ul>
+        <div class="tab-content">
+          <div v-show="isActive === '1'">コンテンツ1</div>
+          <div v-show="isActive === '2'">コンテンツ2</div>
+          <div v-show="isActive === '3'">コンテンツ3</div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    new Vue({
+      el: '#contents',
+      data() {
+        return {
+          isActive: '1'
+        }
+      },
+      methods: {
+        change(num) {
+          this.isActive = num;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
